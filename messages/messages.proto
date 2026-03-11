@@ -18,3 +18,51 @@
 syntax = "proto3";
 
 package axiom_llm_connectors;
+
+// A user chat message with an optional system prompt override.
+message ChatMessage {
+  // The user's message text.
+  string message = 1;
+  // Optional system prompt override. If empty, the node uses its default.
+  string system_prompt = 2;
+}
+
+// A formatted prompt ready to be sent to an LLM.
+message FormattedPrompt {
+  // The system instruction given to the model.
+  string system = 1;
+  // The user turn content.
+  string user = 2;
+}
+
+// A single streaming token chunk emitted by a pipeline LLM node.
+message TokenChunk {
+  // The text of this token or token group.
+  string text = 1;
+  // True on the final frame of the stream.
+  bool is_final = 2;
+}
+
+// A request to embed a piece of text.
+message EmbeddingRequest {
+  // The text to embed.
+  string text = 1;
+  // The embedding model to use (e.g. text-embedding-3-small).
+  string model = 2;
+}
+
+// A dense vector embedding produced from a piece of text.
+message EmbeddingVector {
+  // The embedding values.
+  repeated float values = 1;
+  // The original input text, carried through for downstream use.
+  string input_text = 2;
+}
+
+// Retrieved context chunks and a question to be formatted into a prompt.
+message RetrievalContext {
+  // The user's question.
+  string question = 1;
+  // Relevant document chunks retrieved from a vector store.
+  repeated string chunks = 2;
+}

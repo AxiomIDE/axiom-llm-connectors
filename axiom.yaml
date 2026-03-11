@@ -1,12 +1,28 @@
 name: axiom-llm-connectors
 version: 0.1.0
 language: python
-
-# nodes:
-#   - name: MyNode
-#     input: MyInput
-#     output: MyOutput
-#     # required_secrets lists the secret names this node reads via axiom.Secrets.
-#     # These are validated during publish and shown in the marketplace.
-#     # required_secrets:
-#     #   - MY_API_KEY
+description: LLM connector nodes for Anthropic and OpenAI, including streaming chat and text embeddings.
+author: Axiom
+license: MIT
+nodes:
+    - name: PromptBuilder
+      input: ChatMessage
+      output: FormattedPrompt
+      description: Formats a user chat message into a structured prompt with a system instruction.
+    - name: AnthropicConnector
+      input: FormattedPrompt
+      output: TokenChunk
+      type: pipeline
+      description: Calls the Anthropic Messages API with streaming enabled and yields one TokenChunk per token.
+      required_secrets:
+        - ANTHROPIC_API_KEY
+    - name: EmbeddingGenerator
+      input: EmbeddingRequest
+      output: EmbeddingVector
+      description: Calls the OpenAI embeddings API and returns a dense vector for the input text.
+      required_secrets:
+        - OPENAI_API_KEY
+    - name: ContextBuilder
+      input: RetrievalContext
+      output: FormattedPrompt
+      description: Formats retrieved document chunks and a user question into a structured prompt for an LLM.
