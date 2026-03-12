@@ -47,8 +47,8 @@ message TokenChunk {
 message EmbeddingRequest {
   // The text to embed.
   string text = 1;
-  // The embedding model to use (e.g. text-embedding-3-small).
-  string model = 2;
+  // The embedding model to use (e.g. text-embedding-3-small). Defaults to text-embedding-3-small when absent.
+  optional string model = 2;
 }
 
 // A dense vector embedding produced from a piece of text.
