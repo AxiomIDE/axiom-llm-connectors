@@ -27,3 +27,9 @@ nodes:
       input: RetrievalContext
       output: FormattedPrompt
       description: Formats retrieved document chunks and a user question into a structured prompt for an LLM.
+    - name: QueryEmbedder
+      input: EmbeddingRequest
+      output: EmbeddingVector
+      description: Embeds a single user query into a dense vector for nearest-neighbour retrieval. Unary counterpart to EmbeddingGenerator, intended as the first step in a RAG query graph.
+      required_secrets:
+        - OPENAI_API_KEY
