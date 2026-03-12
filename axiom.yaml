@@ -19,7 +19,8 @@ nodes:
     - name: EmbeddingGenerator
       input: EmbeddingRequest
       output: EmbeddingVector
-      description: Calls the OpenAI embeddings API and returns a dense vector for the input text.
+      type: pipeline
+      description: Calls the OpenAI embeddings API for each input frame and streams one EmbeddingVector per frame.
       required_secrets:
         - OPENAI_API_KEY
     - name: ContextBuilder

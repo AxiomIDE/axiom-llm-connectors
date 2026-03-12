@@ -16,11 +16,9 @@ class _NoOpSecrets:
 
 
 def test_embedding_generator_missing_secret():
-    """Without a secret, the node should return an empty vector."""
+    """Without a secret, the node should yield no frames."""
     log = _NoOpLogger()
     secrets = _NoOpSecrets()
     req = EmbeddingRequest(text="Hello world", model="text-embedding-3-small")
-    result = embedding_generator(log, secrets, req)
-    assert isinstance(result, EmbeddingVector)
-    assert len(result.values) == 0
-    assert result.input_text == "Hello world"
+    results = list(embedding_generator(log, secrets, iter([req])))
+    assert len(results) == 0
