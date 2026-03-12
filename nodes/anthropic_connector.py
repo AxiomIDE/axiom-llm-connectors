@@ -10,7 +10,7 @@ from gen.axiom_logger import AxiomLogger, AxiomSecrets
 def anthropic_connector(log: AxiomLogger, secrets: AxiomSecrets, inputs: Iterator[FormattedPrompt]) -> Iterator[TokenChunk]:
     """Calls the Anthropic Messages API with streaming and yields one TokenChunk per token.
 
-    Reads ANTHROPIC_API_KEY from secrets. Uses claude-3-5-sonnet-20241022 by
+    Reads ANTHROPIC_API_KEY from secrets. Uses claude-sonnet-4-5 by
     default. Each streamed text delta is emitted as a TokenChunk frame with
     is_final=False; the final frame has is_final=True and an empty text field.
     """
@@ -25,9 +25,9 @@ def anthropic_connector(log: AxiomLogger, secrets: AxiomSecrets, inputs: Iterato
     client = anthropic.Anthropic(api_key=api_key)
 
     for prompt in inputs:
-        log.info("anthropic_connector: starting stream", model="claude-3-5-sonnet-20241022")
+        log.info("anthropic_connector: starting stream", model="claude-sonnet-4-5")
         with client.messages.stream(
-            model="claude-3-5-sonnet-20241022",
+            model="claude-sonnet-4-5",
             max_tokens=2048,
             system=prompt.system,
             messages=[{"role": "user", "content": prompt.user}],
