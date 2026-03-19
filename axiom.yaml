@@ -1,4 +1,4 @@
-name: christian/axiom-llm-connectors
+name: axiom-official/axiom-llm-connectors
 version: 0.1.0
 language: python
 description: LLM connector nodes for Anthropic and OpenAI, including streaming chat and text embeddings.
