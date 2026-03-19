@@ -36,7 +36,7 @@ def test_query_embedder_with_mock_openai():
     mock_client = MagicMock()
     mock_client.embeddings.create.return_value = mock_response
 
-    with patch("nodes.query_embedder.OpenAI", return_value=mock_client):
+    with patch("openai.OpenAI", return_value=mock_client):
         result = query_embedder(_NoOpLogger(), _GoodSecrets(), EmbeddingRequest(text="What is attention?"))
 
     assert list(result.values) == pytest.approx(fake_embedding)
@@ -55,7 +55,7 @@ def test_query_embedder_uses_explicit_model():
     mock_client = MagicMock()
     mock_client.embeddings.create.return_value = mock_response
 
-    with patch("nodes.query_embedder.OpenAI", return_value=mock_client):
+    with patch("openai.OpenAI", return_value=mock_client):
         query_embedder(_NoOpLogger(), _GoodSecrets(),
                        EmbeddingRequest(text="hello", model="text-embedding-3-large"))
 
